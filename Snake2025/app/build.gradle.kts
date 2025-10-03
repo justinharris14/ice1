@@ -58,7 +58,9 @@ dependencies {
 
 
     implementation("com.google.firebase:firebase-analytics-ktx")
-
+    implementation("com.google.android.gms:play-services-auth:20.6.0")        // Google Sign-In
+    implementation("androidx.biometric:biometric:1.1.0")                     // BiometricPrompt
+    implementation("androidx.security:security-crypto:1.1.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

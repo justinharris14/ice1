@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Snake2025</string>
+    <string name="bio_title">Login with biometrics</string>
+    <string name="save_for_biometric">Save for biometric login (opt-in)</string>
 </resources>

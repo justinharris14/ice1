@@ -39,12 +39,28 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        gameView.onGameOver = { score ->
-            runOnUiThread {
-                val dlg = GameOverDialog.newInstance(score)
-                dlg.show(supportFragmentManager, "game_over")
+        val api = ApiClient.create()
+
+        api.getJokes().enqueue(object : retrofit2.Callback<List<JokeResponse>> {
+            override fun onResponse(call: retrofit2.Call<List<JokeResponse>>, response: retrofit2.Response<List<JokeResponse>>) {
+                if (response.isSuccessful) {
+                    val jokes = response.body()
+                    if (!jokes.isNullOrEmpty()) {
+                        val randomJoke = jokes.first().joke
+                        textView.text = randomJoke // make sure you have a TextView in your layout
+                    } else {
+                        textView.text = "No jokes found"
+                    }
+                } else {
+                    textView.text = "Error: ${response.message()}"
+                }
             }
-        }
+
+            override fun onFailure(call: retrofit2.Call<List<JokeResponse>>, t: Throwable) {
+                textView.text = "Failed: ${t.message}"
+            }
+        })
+
     }
 
 
